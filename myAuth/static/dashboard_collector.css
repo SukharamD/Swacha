@@ -1,0 +1,377 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(255, 255, 255);
+}
+/*****************Header*****************/
+
+#header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 80px;
+    background: #f3f1fa;
+    position: sticky;
+    z-index: 900;
+    top: 0;
+    left: 0;
+}
+
+#header img{
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    transform: translateX(30px);
+    border-radius: 50%;
+
+}
+
+#navbar{
+    display: flex;
+    justify-content: right;
+    align-items: center; 
+}
+#navbar li{
+    position: relative;
+    padding: 0px 20px;
+
+}
+#navbar li a{
+    text-decoration: none;
+    color: rgb(1, 63, 1);
+    font-size: 1.5rem;
+    font-weight: 500;
+    
+}
+
+#navbar li a:hover,
+#navbar li a.active{
+    color: rgb(1, 63, 1);
+    transform: translateY(-12px);
+}
+#navbar li a:hover::after,
+#navbar li a.active:after{
+    content:" ";
+    width: 25%;
+    height: 2px;
+    background-color: rgb(1, 63, 1);
+    position: absolute;
+    bottom: -5px;
+    left: 30px;
+}
+
+#login-user a,i{
+    text-decoration: none;
+    color: rgb(1, 63, 1);
+    font-size: 30px;
+    margin-right: 10px;
+    margin-left: 50px;
+}
+
+/*****************************************/
+.login-container {
+  position: relative;
+  display: inline-block;
+}
+
+.login-btn {
+  outline: none;
+  background-color: #f3f1fa;
+  color: rgb(1, 63, 1);
+  font-size: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 2px;
+  position: relative;
+  z-index: 10;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 5;
+  border-radius: 4px;
+  padding: 10px 0;
+}
+
+.dropdown p {
+  margin: 0;
+  padding: 10px 20px;
+}
+
+.dropdown p:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown a {
+  color: rgb(1, 63, 1);
+  text-decoration: none;
+  font-weight: 500;
+}
+.dropdown.show {
+  display: block;
+}
+
+
+/*****************************************/
+
+#intro{
+    background-image: url('/static/10181.jpg');
+    background-repeat: no-repeat;
+    background-size:auto 100%;
+    background-position: right;
+    height: 80vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    justify-content: center;
+    padding: 0px 80px;
+    margin-left: 50px;
+}
+
+#intro h1{
+    color: rgb(1, 63, 1);
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+#intro h4{
+    color: rgb(1, 63, 1);
+    font-size: 25px;
+    margin-bottom: 15px;
+}
+#intro p{
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+button{
+    width: 300px;
+    height: 50px;
+    background-color: rgb(1, 63, 1);
+    color: white;
+    font-size: 20px;
+    border: none;
+    padding: 10px 15px;
+    font-weight: 600;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+button:hover{
+    color: rgb(1, 63, 1);
+    background-color: white;
+    box-shadow: 0px 0px 20px rgb(1, 63, 1);
+}
+
+.logo i{
+    margin-top: 50px;
+    color: rgb(1, 63, 1);
+    font-size: 30px;
+    transform: translateX(-40px);
+}
+/***************About Us*****************/
+
+#about-us{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 100px;
+}
+    
+#about-text{
+    display: inline-block
+}
+#about-text h1{
+    color: rgb(1, 63, 1);
+    font-size: 50px;
+    margin-bottom: 15px;
+    margin-left: 10px;    
+}
+#about-text p{
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    margin-bottom: 30px;
+    font-weight: 500;
+    margin-left: 10px;
+}
+
+#about-us img{
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
+}
+
+
+/***************Services*****************/
+#services{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+#service-list{
+    margin-right: 100px;
+}
+
+#service-list h1{
+    color: rgb(1, 63, 1);
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+#service-list li{
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+#service img{
+    margin-left: 100px;
+    width: 40%;
+    height: 40%;
+}
+
+/***************Contact Us*****************/
+#contact{
+    display: flex;
+    flex-direction: column;
+}
+
+#contact-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#contact-form h1{
+    font-size: 50px;
+    color: rgb(1, 63, 1);
+    margin-bottom: 10px;
+}
+#contact-form form{
+    font-size: 25px;
+}
+#contact-form label{
+    margin-right: 25px;
+    margin-bottom: 25px;
+}
+#contact-form button{
+    margin-top: 15px;
+    margin-bottom: 25px;
+} 
+.extra{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#contact-form input{
+    width: 300px;
+    height: 40px;
+    border-radius: 25px;
+    padding: 10px;
+    margin: 10px 50px;
+}
+#contact-form textarea{
+    width: 300px;
+    height: 100px;
+    border-radius: 25px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.contact-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/***************Footer*****************/
+
+footer{
+    margin-top: 50px;
+    background: #f6fcf5;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+footer .col-contact{
+    margin-left: 100px;
+}
+.col p{
+    margin-left: 10px;
+}
+footer .col{
+    display:flex ;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+footer .logo{
+    margin-left: 0px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    border-radius: 50%;
+}
+footer h4{
+    margin-top: 20px;
+    font-size: 25px;
+    padding: 0px 0px 20px 0px;
+    color: rgb(0, 0, 0);
+}
+footer p{
+    font-size: 15px;
+    margin: 0px 0px 20px 0px;
+}
+
+footer a{
+    text-decoration: none;
+    margin-bottom: 10px;
+    color: black;
+    font-size: 20px;
+}
+footer .follow{
+    padding: 5px;
+    color: rgb(1, 63, 1);
+    margin-top: 20px;
+}
+footer .follow i{
+    padding-right: 5px;
+    color: rgb(1, 63, 1);
+}
+footer .install .row img{
+    border: 1px solid black;
+    background-color: #000000 ;
+}
+
+#copy-right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+}
+
+#copy-right p{
+    color:rgb(0, 0, 0);
+    font-size: 15px;
+    font-weight: 600;
+
+}
+hr{
+    color: #818181;
+}

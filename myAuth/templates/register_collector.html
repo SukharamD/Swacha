@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Swacha - Sign Up</title>
+    <link rel="stylesheet" href="{% static 'register_collector.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="left">
+        <h1>Hello,</h1>
+        <h2>Welcome to Swacha!!</h2>
+        <p>Join our community and make a difference</p>
+        <a href="{% url 'login_collector' %}">Already Registered? Login</a>
+      </div>
+      <div class="right">
+        <h2>Create an account</h2>
+        <form action="{% url 'register_collector' %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <!-- <label for="username">Username</label> -->
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter your username"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <!-- <label for="email">Email</label> -->
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <!-- <label for="password">Password</label> -->
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <!-- <label for="confirm_password">Confirm Password</label> -->
+            <input
+              type="password"
+              id="confirm_password"
+              name="confirm_password"
+              placeholder="Confirm your password"
+              required
+            />
+          </div>
+
+          {% if messages %} {% for message in messages %}
+          <p style="color: red">{{ message }}</p>
+          {% endfor %} {% endif %} {% if error_message %}
+          <p style="color: red">{{ error_message }}</p>
+          {% endif %}
+
+          <button type="submit" class="signup-btn">Signup</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

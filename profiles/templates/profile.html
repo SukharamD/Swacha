@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>User Profile Page</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'profiles.css'%}" />
+  </head>
+  <body>
+    <section id="header">
+      <a href="#"
+        ><img src="{% static 'Logo_new1.png' %}" height="100px" width="100px"
+      /></a>
+      <div>
+        <ul id="navbar" type="none">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <div class="login-container">
+            <div class="login-btn" id="loginBtn">
+              <i class="fa-regular fa-circle-user"></i>
+              <span>
+                {% if user.is_authenticated %} {{ user.username|upper }} {% else %}
+                Login {% endif %}
+              </span>
+            </div>
+          </div>
+        </ul>
+      </div>
+    </section>
+
+ <!-- User Profile Section  -->
+    
+<div class="container">
+  <aside class="sidebar">
+    <div class="user-box">
+      <i class="fa-solid fa-circle-user" onclick="showSection('user-info')"></i>
+      <p>Hello, {{ user.username }}</p>
+    </div>
+
+    <nav>
+      <ul>
+        <li onclick="showSection('orders')"><span>🛒</span> My Orders</li>
+        <li>
+          <span>👤</span> Account Setting
+          <ul class="sub-menu">
+            <li onclick="showSection('profile')">Profile</li>
+            <li onclick="showSection('address')">Address</li>
+          </ul>
+        </li>
+        <li>
+          <span>🌱</span> Contributions
+          <ul class="sub-menu">
+            <li onclick="showSection('contributions')">Nature</li>
+            <li onclick="showSection('environment')">Environment</li>
+          </ul>
+        </li>
+        <li><a href="{% url 'logout' %}"><span>⏻</span> Logout</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <!-- Default visible section -->
+    <div id="user-info" class="section" style="display: block">
+      <h2>User Information</h2>
+      <i class="fa-solid fa-circle-user"></i>
+      <p>Username: {{ user.username }}</p>
+      <p>Email: {{ user.email }}</p>
+      {% if user.profile %}
+        <p>Phone: {{ user.profile.phone_number|default:"Not updated" }}</p>
+        <p>Location: {{ user.profile.location|default:"Not updated" }}</p>
+      {% else %}
+        <p>Phone: Not updated</p>
+        <p>Location: Not updated</p>
+      {% endif %}
+    </div>
+
+    <div id="profile" class="section" style="display: none">
+      <h2>Personal Information</h2>
+      <form method="POST" action="{% url 'update_profile' %}">
+        {% csrf_token %}
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="User" />
+
+        <label>Your Gender</label>
+        <div class="gender">
+          <label><input type="radio" name="gender" checked /> Male</label>
+          <label><input type="radio" name="gender" /> Female</label>
+        </div>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="Email" />
+
+        <label for="phone">Phone No</label>
+        <input type="text" id="phone" placeholder="Phone No" />
+
+        <label for="location">Location</label>
+        <input type="text" id="location" placeholder="Location" />
+
+        <button type="submit">Update Profile</button>
+      </form>
+    </div>
+
+    <div id="orders" class="section" style="display: none">
+      <h2>My Orders</h2>
+      <div id="order-list">
+        {% if orders %}
+          {% for order in orders %}
+            <div class="order-card">
+              <p><strong>Garbage Type:</strong> {{ order.garbage_type|capfirst }}</p>
+              <p><strong>Quantity:</strong> {{ order.quantity }}</p>
+              <p><strong>Pickup Date:</strong> {{ order.booked_at|date:"d M Y, H:i" }}</p>
+              <p><strong>Slot Time:</strong> {{ order.time_slot }}</p>
+              <p><strong>Address:</strong> {{ order.address }}</p>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p>No orders</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div id="address" class="section" style="display: none">
+      <h2>Address Section</h2>
+      <input type="text" placeholder="Home Address" />
+      <input type="text" placeholder="Work Address" />
+    </div>
+
+    <div id="contributions" class="section" style="display: none">
+      <h2>Contributions</h2>
+      <ul>
+        <li>Nature: 10 trees planted</li>
+        <li>Environment: 5 clean-up drives participated</li>
+      </ul>
+    </div>
+
+    <div id="environment" class="section" style="display: none">
+      <h2>Environment Contributions</h2>
+      <ul>
+        <li>Recycled: 100 kg</li>
+        <li>Composted: 50 kg</li>
+      </ul>
+    </div>
+  </main>
+</div>
+        <!-- Address Section -->
+        <div id="address" class="section" style="display: none">
+          <h2>Address Section</h2>
+          <p>You can manage your saved addresses here.</p>
+          <input type="text" placeholder="Home Address" />
+          <input type="text" placeholder="Work Address" />
+        </div>
+        <div id="contributions" class="section" style="display: none">
+          <h2>Contributions</h2>
+          <p>Here you can see your contributions to nature and environment.</p>
+          <ul>
+            <li>Nature: 10 trees planted</li>
+            <li>Environment: 5 clean-up drives participated</li>
+          </ul>
+        </div>
+        <div id="environment" class="section" style="display: none">
+          <h2>Environment Contributions</h2>
+          <p>Here you can see your contributions to the environment.</p>
+          <ul>
+            <li>Recycled: 100 kg</li>
+            <li>Composted: 50 kg</li>
+          </ul>
+        </div>
+      </main>
+    </div>
+
+<footer class="footer">
+      <div class="footer-container">
+        <!-- Left: Logo + Contact -->
+        <div class="footer-left">
+          <div class="logo">
+            <img src="{% static 'Logo_new1.png' %}" height="100px" width="100px"/>
+            <h2>Swaccha</h2>
+          </div>
+          <div class="contact-info">
+            <h4>Contact</h4>
+            <p>Address: MG Road, <br />Church Street, Bengaluru</p>
+            <p>Phone: (+91) 9876543210<br />9996665551</p>
+          </div>
+        </div>
+
+        <!-- Center: Navigation -->
+        <div class="footer-center">
+          <a href="#">Home</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+          <a href="#">About Us</a>
+        </div>
+
+        <!-- Right: Social Icons -->
+        <div class="footer-right">
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Crafted with care &bull; 2025 – Swaccha. Keeping India Clean.</p>
+      </div>
+    </footer>
+
+    <script src="{% static 'profiles.js' %}"></script>
+  </body>
+</html>

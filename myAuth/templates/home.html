@@ -1,0 +1,210 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+
+    <title>Home</title>
+  </head>
+  <body>
+    <section id="header">
+      <a href="#"
+        ><img src="{% static 'Logo_new1.png' %}" height="100px" width="100px"
+      /></a>
+      <div>
+        <ul id="navbar" type="none">
+          <li><a class="active" href="">Home</a></li>
+          <li><a href="#about-us">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <div class="login-container">
+            <div class="login-btn" id="loginBtn">
+              <i class="fa-regular fa-circle-user"></i>
+              <span>
+                {% if user.is_authenticated %}
+                 {{ user.username|upper }} 
+                 {% else%}
+                  Login {% endif %}
+              </span>
+              <div class="dropdown" id="dropdownMenu">
+                {% if user.is_authenticated %}
+                <p><a href="{% url 'profile' %}">My Profile</a></p>
+                <hr />
+                <p><a href="{% url 'logout' %}">Logout</a></p>
+                {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </ul>
+      </div>
+    </section>
+
+    <section id="intro">
+      <h1>Welcome to Swacha!!</h1>
+      <h4>"Less Waste. More Future"</h4>
+      <p>Indias First Online Waste Management Company</p>
+      <p>Join us in our mission to create a cleaner, greener future for all.</p>
+      <a href="{% url 'bookings' %}"><button>BOOK Garbage Picking</button></a>
+      <div class="logo">
+        <i class="fa-solid fa-recycle"></i>
+        <i class="fa-solid fa-leaf"></i>
+        <i class="fa-solid fa-biohazard"></i>
+        <i class="fa-solid fa-trash"></i>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+      <h1>About us</h1>
+      <!-- First Row -->
+      <div class="info-row">
+        <div class="info-box">
+          <i class="fas fa-leaf icon"></i>
+          <h3>Mission</h3>
+          <p>Empowering Clean Communities</p>
+        </div>
+        <div class="info-box">
+          <i class="fas fa-globe icon"></i>
+          <h3>Vision</h3>
+          <p>Towards a Greener Tomorrow</p>
+        </div>
+        <div class="info-box">
+          <i class="fas fa-map-marker-alt icon"></i>
+          <h3>Story</h3>
+          <p>Rooted in Bangalore’s Culture</p>
+        </div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box stat-box">
+          <i class="fas fa-recycle icon"></i>
+          <h3 class="counter" data-target="120000">0</h3>
+          <p>Plastic Recycled (kg)</p>
+        </div>
+        <div class="info-box stat-box">
+          <i class="fas fa-cloud icon"></i>
+          <h3 class="counter" data-target="85000">0</h3>
+          <p>Carbon Reduced (kg)</p>
+        </div>
+        <div class="info-box stat-box">
+          <i class="fas fa-home icon"></i>
+          <h3 class="counter" data-target="50000">0</h3>
+          <p>Households Impacted</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-section">
+      <h1>Services Offered By Us</h1>
+      <div class="services-grid">
+        <div class="service-card">
+          <i class="fas fa-truck animate-move"></i>
+          <p>Home Pickup</p>
+        </div>
+
+        <div class="service-card">
+          <i class="fas fa-building"></i>
+          <p>Commercial Pickup</p>
+        </div>
+
+        <div class="service-card">
+          <i class="fas fa-industry"></i>
+          <p>Industrial Pickup</p>
+        </div>
+
+        <div class="service-card">
+          <i class="fas fa-trash-alt"></i>
+          <p>Event Waste Management</p>
+        </div>
+
+        <div class="service-card">
+          <i class="fas fa-recycle animate-spin"></i>
+          <p>Recycling Services</p>
+        </div>
+
+        <div class="service-card">
+          <i class="fas fa-bullhorn"></i>
+          <p>Awareness Campaigns</p>
+        </div>
+
+        <div class="service-card">
+          <i class="fas fa-comments"></i>
+          <p>Consultation Services</p>
+        </div>
+
+        <div class="service-card">
+          <i class="fas fa-users"></i>
+          <p>Customised Solutions</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact-container">
+        <div class="contact-box">
+          <div class="form-section">
+            <h2>Contact Us</h2>
+            <p>Have questions? We’re here to help!</p>
+            <form>
+              <input type="text" placeholder="Name" required />
+              <input type="email" placeholder="Email" required />
+              <textarea placeholder="Message" rows="4" required></textarea>
+              <button type="submit">Send</button>
+            </form>
+          </div>
+          <div class="info-section">
+            <p><i class="fas fa-leaf"></i> +91 9999999999</p>
+            <p><i class="fas fa-leaf"></i> info@swaccha.com</p>
+            <p><i class="fas fa-recycle"></i> Hosur Road , Bangalore</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <!-- Left: Logo + Contact -->
+        <div class="footer-left">
+          <div class="logo">
+            <img src="{% static 'Logo_new1.png' %}" height="100px" width="100px"/>
+            <h2>Swaccha</h2>
+          </div>
+          <div class="contact-info">
+            <h4>Contact</h4>
+            <p>Address: MG Road, <br />Church Street, Bengaluru</p>
+            <p>Phone: (+91) 9876543210<br />9996665551</p>
+          </div>
+        </div>
+
+        <!-- Center: Navigation -->
+        <div class="footer-center">
+          <a href="#">Home</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+          <a href="#">About Us</a>
+        </div>
+
+        <!-- Right: Social Icons -->
+        <div class="footer-right">
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Crafted with care &bull; 2025 – Swaccha. Keeping India Clean.</p>
+      </div>
+    </footer>
+
+    <script src="{% static 'home.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'dashboard_collector.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <script src="{% static 'dashboard_collector.js' %}" defer></script>
+    <title>Home</title>
+  </head>
+
+  <body>
+    <section id="header">
+      <a href="#">
+        <img src="{% static 'Swacha (2).png' %}" height="100px" width="100px" />
+      </a>
+      <div>
+        <ul id="navbar" type="none">
+          <li><a class="active" href="">Home</a></li>
+          <li><a href="#">Notifications</a></li>
+          <li><a href="#">Orders</a></li>
+          <li>
+            <div class="login-container">
+              <div class="login-btn" id="loginBtn">
+                <i class="fa-regular fa-circle-user"></i>
+                <span>
+                  {% if user.is_authenticated %}
+                    {{ user.username|upper }}
+                  {% else %}
+                    Login
+                  {% endif %}
+                </span>
+                <div class="dropdown" id="dropdownMenu">
+                  {% if user.is_authenticated %}
+                    <hr />
+                    <p><a href="{% url 'logout' %}">Logout</a></p>
+                  {% else %}
+                    <a href="{% url 'login_collector' %}">Login</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <h2>Collector Dashboard</h2>
+
+    {% if pending_bookings %}
+      <ul>
+        {% for booking in pending_bookings %}
+          <li>
+            <p>User: {{ booking.user.username }}</p>
+            <p>Type: {{ booking.garbage_type }}</p>
+            <p>Quantity: {{ booking.quantity }}</p>
+            <p>Date: {{ booking.date }}</p>
+            <p>Status: {{ booking.status }}</p>
+
+            {% if booking.status == 'pending' %}
+              <form method="POST" action="{% url 'accept_booking' booking.id %}">
+                {% csrf_token %}
+                <button type="submit">Accept</button>
+              </form>
+              <form method="POST" action="{% url 'reject_booking' booking.id %}">
+                {% csrf_token %}
+                <button type="submit">Reject</button>
+              </form>
+            {% elif booking.collector == request.user %}
+              <p><strong>You accepted this request.</strong></p>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No bookings available.</p>
+    {% endif %}
+
+    <footer class="section-p1">
+      <div class="col-contact">
+        <img
+          class="logo"
+          src="{% static 'Swacha (2).png' %}"
+          height="100px"
+          width="100px"
+        />
+        <h4>Contact</h4>
+        <p><strong>Address:</strong> MG Road, Church Street, Bengaluru</p>
+        <p><strong>Phone :</strong> (+91) 9876543210 / 9996665551</p>
+
+        <div class="follow">
+          <h4>Follow Us</h4>
+          <div>
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-youtube"></i>
+            <i class="fa-brands fa-instagram"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <h4>About Us</h4>
+        <a href="">Delivery Information</a>
+        <a href="">Privacy Policy</a>
+        <a href="">Terms & Conditions</a>
+        <a href="">Contact Us</a>
+      </div>
+
+      <div class="col">
+        <h4>My Account</h4>
+        <a href="">Sign In</a>
+        <a href="">View Cart</a>
+        <a href="">Track My Order</a>
+        <a href="">Help</a>
+      </div>
+
+      <div class="col install">
+        <h4>Install</h4>
+        <p>From App Store or Google Play Store</p>
+
+        <div class="row">
+          <img
+            src="{% static 'apple_store.webp' %}"
+            alt="Apple Store"
+            width="110px"
+            height="40px"
+          />
+          <img
+            src="{% static 'Google_Play_Store.png' %}"
+            alt="Google Play"
+            width="110px"
+            height="40px"
+          />
+        </div>
+        <p>Secured Payment Gateway</p>
+      </div>
+    </footer>
+
+    <hr />
+    <div id="copy-right">
+      <p>&copy; 2025, tech etc - HTML CSS E-commerce Template</p>
+    </div>
+  </body>
+</html>

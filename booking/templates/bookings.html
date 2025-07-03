@@ -1,0 +1,198 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Book Garbage Collection</title>
+    <link rel="stylesheet" href="{% static 'bookings.css' %}" />
+  </head>
+  <body>
+    <!-- Header -->
+
+    <section id="header">
+      <a href="#"
+        ><img src="{% static 'Swacha (2).png' %}" height="100px" width="100px"
+      /></a>
+      <div>
+        <ul id="navbar" type="none">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <div class="login-container">
+            <div class="login-btn" id="loginBtn">
+              <i class="fa-regular fa-circle-user"></i>
+              <span> {{ user.username }} </span>
+              <div class="dropdown" id="dropdownMenu">
+                {% if user.is_authenticated %}
+                <p><a href="{% url 'profile' %}">My Profile</a></p>
+                <p><a href="#">Orders</a></p>
+                <p><a href="#">Wishlist</a></p>
+                <p><a href="#">Rewards</a></p>
+                <p><a href="#">Addresses</a></p>
+                <hr />
+                <p><a href="{% url 'logout' %}">Logout</a></p>
+                {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Booking -->
+    <div class="booking-container">
+      <form id="bookingForm" method="POST" action="{% url 'bookings' %}">
+        {% csrf_token %}
+        <h2>Book Garbage Collection</h2>
+
+        <!-- Garbage Type -->
+        <div class="form-group">
+          <label>Type of Garbage:</label>
+          <div class="radio-group">
+            <label
+              ><input type="radio" name="garbage_type" value="wet" required />
+              Wet</label
+            >
+            <label
+              ><input type="radio" name="garbage_type" value="dry" /> Dry</label
+            >
+          </div>
+        </div>
+
+        <!-- Dry Subtypes -->
+        <div class="form-group" id="dry-options" style="display: none">
+          <label>Select Dry Type:</label>
+          <div class="checkbox-group">
+            <label
+              ><input type="checkbox" name="dry_type" value="Plastic" />
+              Plastic</label
+            >
+            <label
+              ><input type="checkbox" name="dry_type" value="Paper" />
+              Paper</label
+            >
+            <label
+              ><input type="checkbox" name="dry_type" value="Other" />
+              Other</label
+            >
+          </div>
+        </div>
+
+        <!-- Quantity -->
+        <div class="form-group">
+          <label>Quantity of Garbage:</label>
+          <select name="quantity" required>
+            <option value="">Select quantity</option>
+            <option value="0-20kg">Small (0-20kg)</option>
+            <option value="20-40kg">Medium (20-40kg)</option>
+            <option value="40-100kg">Large (40-100kg)</option>
+          </select>
+        </div>
+
+        <!-- Date -->
+        <div class="form-group">
+          <label>Select Date:</label>
+          <input type="date" name="date" required />
+        </div>
+
+        <!-- Time -->
+        <div class="form-group">
+          <label>Select Time Slot:</label>
+          <select name="time_slot" required>
+            <option value="">Select time slot</option>
+            {% for slot in time_slots %}
+            <option value="{{ slot }}">{{ slot }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Address -->
+        <div class="form-group">
+          <label>Address:</label>
+          <textarea name="address" rows="3" required></textarea>
+        </div>
+
+        <!-- Buttons -->
+        <div class="form-buttons">
+          <button type="submit" class="confirm-btn">Confirm Booking</button>
+          <a href="{% url 'home' %}" class="home-btn">Home</a>
+        </div>
+
+        <!-- Success Message -->
+        <p id="successMessage" class="success-msg" style="display: none">
+          Booking Successful!
+        </p>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="section-p1">
+      <div class="col-contact">
+        <img
+          class="logo"
+          src="{% static 'Swacha (2).png' %}"
+          height="100px"
+          width="100px"
+        />
+        <h4>Contact</h4>
+        <p><strong>Adress:</strong>MG Road,Church Street, Bengaluru</p>
+        <p><strong>Phone :</strong>(+91) 9876543210 / 9996665551</p>
+
+        <div class="follow">
+          <h4>Follow Us</h4>
+          <div>
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-youtube"></i>
+            <i class="fa-brands fa-instagram"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <h4>About Us</h4>
+        <a href="">Delivery Information</a>
+        <a href="">Privacy Policy</a>
+        <a href="">Terms&Conditions</a>
+        <a href="">Contact Us</a>
+      </div>
+
+      <div class="col">
+        <h4>My Account</h4>
+        <a href="">Sign In</a>
+        <a href="">View Cart</a>
+        <a href="">Track My Order</a>
+        <a href="">Help</a>
+      </div>
+
+      <div class="col install">
+        <h4>Install</h4>
+        <p>From Appstore or Google Playstore</p>
+
+        <div class="row">
+          <img
+            src="{% static 'apple_store.webp' %}"
+            alt=""
+            width="110px"
+            height="40px"
+          />
+          <img
+            src="{% static 'Google_Play_Store.png' %}"
+            alt=""
+            width="110px"
+            height="40px"
+          />
+        </div>
+        <p>Secured Payment Gateway</p>
+      </div>
+    </footer>
+
+    <hr />
+
+    <div id="copy-right">
+      <p>&copy; 2025, tech etc- HTML CSS Ecommerece Template</p>
+    </div>
+
+    <script src="{% static 'booking.js' %}"></script>
+  </body>
+</html>
