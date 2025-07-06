@@ -114,11 +114,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'   # ✅ Leading slash added
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'  # Directory for static files
+    BASE_DIR / 'static'   # Your development static files
 ]
-STATIC_ROOT = BASE_DIR / 'staticfiles'  
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Where collectstatic stores files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
