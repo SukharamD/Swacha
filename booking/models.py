@@ -38,4 +38,4 @@ class Booking(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
 
     def __str__(self):
-        return f"{self.user.username} - {self.date} at {self.time_slot} -  {self.status}"
+        return f"{self.user.username} - {self.date} at {self.time_slot} -  {self.status}- {self.id}"

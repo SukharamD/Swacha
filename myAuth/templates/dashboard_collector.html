@@ -49,101 +49,90 @@
       </div>
     </section>
 
-    <h2>Collector Dashboard</h2>
+    <div class="dashboard-container">
+    <!-- Statistics -->
+    <div class="stats">
+      <div class="stat-box">
+        <h2>35</h2>
+        <p>Total Pickups</p>
+      </div>
+      <div class="stat-box">
+        <h2>8</h2>
+        <p>Scheduled Pickups</p>
+      </div>
+      <div class="stat-box">
+        <h2>12</h2>
+        <p>Completed Pickups</p>
+      </div>
+    </div>
 
-    {% if pending_bookings %}
-      <ul>
-        {% for booking in pending_bookings %}
-          <li>
-            <p>User: {{ booking.user.username }}</p>
-            <p>Type: {{ booking.garbage_type }}</p>
-            <p>Quantity: {{ booking.quantity }}</p>
-            <p>Date: {{ booking.date }}</p>
-            <p>Status: {{ booking.status }}</p>
+<h2>Collector Dashboard</h2>
 
-            {% if booking.status == 'pending' %}
-              <form method="POST" action="{% url 'accept_booking' booking.id %}">
-                {% csrf_token %}
-                <button type="submit">Accept</button>
-              </form>
-              <form method="POST" action="{% url 'reject_booking' booking.id %}">
-                {% csrf_token %}
-                <button type="submit">Reject</button>
-              </form>
-            {% elif booking.collector == request.user %}
-              <p><strong>You accepted this request.</strong></p>
-            {% endif %}
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>No bookings available.</p>
-    {% endif %}
+{% if pending_bookings %}
+  <ul class="booking-list">
+    {% for booking in pending_bookings %}
+      <li class="booking-card">
+        <p><strong>User:</strong> {{ booking.user.username }}</p>
+        <p><strong>Type:</strong> {{ booking.garbage_type }}</p>
+        <p><strong>Quantity:</strong> {{ booking.quantity }}</p>
+        <p><strong>Date:</strong> {{ booking.date }}</p>
+        <p><strong>Status:</strong> {{ booking.status }}</p>
 
-    <footer class="section-p1">
-      <div class="col-contact">
-        <img
-          class="logo"
-          src="{% static 'Swacha (2).png' %}"
-          height="100px"
-          width="100px"
-        />
-        <h4>Contact</h4>
-        <p><strong>Address:</strong> MG Road, Church Street, Bengaluru</p>
-        <p><strong>Phone :</strong> (+91) 9876543210 / 9996665551</p>
+        {% if booking.status == 'pending' %}
+          <form method="POST" action="{% url 'accept_booking' booking.id %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="accept-btn">Accept</button>
+          </form>
+          <form method="POST" action="{% url 'reject_booking' booking.id %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="reject-btn">Reject</button>
+          </form>
+        {% elif booking.collector == request.user %}
+          <p><em>You accepted this request.</em></p>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No bookings available.</p>
+{% endif %}
 
-        <div class="follow">
-          <h4>Follow Us</h4>
-          <div>
-            <i class="fa-brands fa-facebook"></i>
-            <i class="fa-brands fa-twitter"></i>
-            <i class="fa-brands fa-youtube"></i>
-            <i class="fa-brands fa-instagram"></i>
+    <footer class="footer">
+      <div class="footer-container">
+        <!-- Left: Logo + Contact -->
+        <div class="footer-left">
+          <div class="logo">
+            <img src="{% static 'Logo_new1.png' %}" height="100px" width="100px"/>
+            <h2>Swaccha</h2>
+          </div>
+          <div class="contact-info">
+            <h4>Contact</h4>
+            <p>Address: MG Road, <br />Church Street, Bengaluru</p>
+            <p>Phone: (+91) 9876543210<br />9996665551</p>
           </div>
         </div>
-      </div>
 
-      <div class="col">
-        <h4>About Us</h4>
-        <a href="">Delivery Information</a>
-        <a href="">Privacy Policy</a>
-        <a href="">Terms & Conditions</a>
-        <a href="">Contact Us</a>
-      </div>
-
-      <div class="col">
-        <h4>My Account</h4>
-        <a href="">Sign In</a>
-        <a href="">View Cart</a>
-        <a href="">Track My Order</a>
-        <a href="">Help</a>
-      </div>
-
-      <div class="col install">
-        <h4>Install</h4>
-        <p>From App Store or Google Play Store</p>
-
-        <div class="row">
-          <img
-            src="{% static 'apple_store.webp' %}"
-            alt="Apple Store"
-            width="110px"
-            height="40px"
-          />
-          <img
-            src="{% static 'Google_Play_Store.png' %}"
-            alt="Google Play"
-            width="110px"
-            height="40px"
-          />
+        <!-- Center: Navigation -->
+        <div class="footer-center">
+          <a href="#">Home</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+          <a href="#">About Us</a>
         </div>
-        <p>Secured Payment Gateway</p>
+
+        <!-- Right: Social Icons -->
+        <div class="footer-right">
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Crafted with care &bull; 2025 – Swaccha. Keeping India Clean.</p>
       </div>
     </footer>
 
-    <hr />
-    <div id="copy-right">
-      <p>&copy; 2025, tech etc - HTML CSS E-commerce Template</p>
-    </div>
+
   </body>
 </html>

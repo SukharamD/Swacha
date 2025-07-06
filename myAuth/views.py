@@ -95,8 +95,9 @@ def register_collector_view(request):
         try:
             user = User.objects.create_user(username=username, email=email, password=password)
 
-            # 🔥 Create collector profile explicitly
-            UserProfile.objects.create(user=user, is_collector=True)
+            # ✅ Update the existing profile created by signal
+            user.userprofile.is_collector = True
+            user.userprofile.save()
 
             messages.success(request, "Collector account created successfully.")
             return redirect('login_collector')
@@ -135,10 +136,15 @@ def login_collector_view(request):
 @login_required(login_url='login_collector')
 def collector_dashboard(request):
     if request.user.userprofile.is_collector:
-        bookings = Booking.objects.filter(collector__isnull=True, status='pending')
+        bookings = Booking.objects.filter(
+            collector__isnull=True,
+            status='pending',
+            user__isnull=False  # 🚫 Avoid bookings with deleted users
+        )
         print(bookings)
     else:
         bookings = []
         print("User is not collector")
 
     return render(request, 'dashboard_collector.html', {'pending_bookings': bookings})
+

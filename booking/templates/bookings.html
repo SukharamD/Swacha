@@ -10,9 +10,12 @@
     <!-- Header -->
 
     <section id="header">
+      <div class="logo-container">
       <a href="#"
-        ><img src="{% static 'Swacha (2).png' %}" height="100px" width="100px"
+        ><img src="{% static 'Logo_new1.png' %}" height="100px" width="100px"
       /></a>
+      <h1>Swacha</h1>
+      </div>
       <div>
         <ul id="navbar" type="none">
           <li><a href="{% url 'home' %}">Home</a></li>
@@ -126,72 +129,41 @@
     </div>
 
     <!-- Footer -->
-    <footer class="section-p1">
-      <div class="col-contact">
-        <img
-          class="logo"
-          src="{% static 'Swacha (2).png' %}"
-          height="100px"
-          width="100px"
-        />
-        <h4>Contact</h4>
-        <p><strong>Adress:</strong>MG Road,Church Street, Bengaluru</p>
-        <p><strong>Phone :</strong>(+91) 9876543210 / 9996665551</p>
-
-        <div class="follow">
-          <h4>Follow Us</h4>
-          <div>
-            <i class="fa-brands fa-facebook"></i>
-            <i class="fa-brands fa-twitter"></i>
-            <i class="fa-brands fa-youtube"></i>
-            <i class="fa-brands fa-instagram"></i>
+    <footer class="footer">
+      <div class="footer-container">
+        <!-- Left: Logo + Contact -->
+        <div class="footer-left">
+          <div class="logo">
+            <img src="{% static 'Logo_new1.png' %}" height="100px" width="100px"/>
+            <h2>Swaccha</h2>
+          </div>
+          <div class="contact-info">
+            <h4>Contact</h4>
+            <p>Address: MG Road, <br />Church Street, Bengaluru</p>
+            <p>Phone: (+91) 9876543210<br />9996665551</p>
           </div>
         </div>
-      </div>
 
-      <div class="col">
-        <h4>About Us</h4>
-        <a href="">Delivery Information</a>
-        <a href="">Privacy Policy</a>
-        <a href="">Terms&Conditions</a>
-        <a href="">Contact Us</a>
-      </div>
-
-      <div class="col">
-        <h4>My Account</h4>
-        <a href="">Sign In</a>
-        <a href="">View Cart</a>
-        <a href="">Track My Order</a>
-        <a href="">Help</a>
-      </div>
-
-      <div class="col install">
-        <h4>Install</h4>
-        <p>From Appstore or Google Playstore</p>
-
-        <div class="row">
-          <img
-            src="{% static 'apple_store.webp' %}"
-            alt=""
-            width="110px"
-            height="40px"
-          />
-          <img
-            src="{% static 'Google_Play_Store.png' %}"
-            alt=""
-            width="110px"
-            height="40px"
-          />
+        <!-- Center: Navigation -->
+        <div class="footer-center">
+          <a href="#">Home</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+          <a href="#">About Us</a>
         </div>
-        <p>Secured Payment Gateway</p>
+
+        <!-- Right: Social Icons -->
+        <div class="footer-right">
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Crafted with care &bull; 2025 – Swaccha. Keeping India Clean.</p>
       </div>
     </footer>
-
-    <hr />
-
-    <div id="copy-right">
-      <p>&copy; 2025, tech etc- HTML CSS Ecommerece Template</p>
-    </div>
 
     <script src="{% static 'booking.js' %}"></script>
   </body>

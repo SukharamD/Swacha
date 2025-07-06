@@ -1,0 +1,1 @@
+web: gunicorn Swaccha_project.wsgi

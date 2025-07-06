@@ -186,14 +186,14 @@ button:hover{
 /***************About Us*****************/
 
 
-.about-section {
+#about-section {
   padding: 50px 20px;
   background: #bfdba3;
   text-align: center;
   font-family: 'Poppins', sans-serif;
 }
 
-.about-section h1 {
+#about-section h1 {
   font-size: 36px;
   margin-bottom: 40px;
   color: #2e7d32;
@@ -260,20 +260,20 @@ button:hover{
 
 /***************Services*****************/
 
-.services-section {
+#services-section {
   padding: 50px 20px;
   background: #b0ca96;
   font-family: 'Poppins', sans-serif;
   text-align: center;
 }
 
-.services-section h1 {
+#services-section h1 {
   font-size: 36px;
   margin-bottom: 40px;
   color: #1b5e20;
 }
 
-.services-grid {
+#services-section .services-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Always 4 per row */
   gap: 25px;
