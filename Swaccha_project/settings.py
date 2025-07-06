@@ -114,14 +114,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'   # ✅ Leading slash added
-STATICFILES_DIRS = [
-    BASE_DIR / 'myAuth' / 'static',
-    BASE_DIR / 'profiles' / 'static',
-    BASE_DIR / 'booking' / 'static',
-]
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Where collectstatic stores files
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
