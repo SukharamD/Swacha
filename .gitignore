@@ -6,9 +6,6 @@ db.sqlite3
 .env
 *.log
 
-staticfiles/
-media/
-
 .vscode/
 .idea/
 .DS_Store
