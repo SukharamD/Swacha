@@ -116,7 +116,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'   # ✅ Leading slash added
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'   # Your development static files
+    BASE_DIR / 'myAuth' / 'static',
+    BASE_DIR / 'profiles' / 'static',
+    BASE_DIR / 'booking' / 'static',
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # Where collectstatic stores files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
