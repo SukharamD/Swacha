@@ -7,11 +7,7 @@ dotenv.load_dotenv()
 from django.contrib.messages import constants as messages
 
 
-MESSAGE_STORAGE = {
-    'django.contrib.messages.storage.session.SessionStorage',
-    'django.contrib.messages.storage.cookie.CookieStorage',
-    'django.contrib.messages.storage.base.MessageStorage',
-}
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
