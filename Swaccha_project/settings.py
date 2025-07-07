@@ -4,6 +4,14 @@ import dj_database_url
 from decouple import config
 import dotenv
 dotenv.load_dotenv()
+from django.contrib.messages import constants as messages
+
+
+MESSAGE_STORAGE = {
+    'django.contrib.messages.storage.session.SessionStorage',
+    'django.contrib.messages.storage.cookie.CookieStorage',
+    'django.contrib.messages.storage.base.MessageStorage',
+}
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
