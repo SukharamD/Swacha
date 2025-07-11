@@ -63,7 +63,9 @@
   </aside>
 
   <main class="content">
+
     <!-- Default visible section -->
+     
     <div id="user-info" class="section" style="display: block">
       <h2>User Information</h2>
       <i class="fa-solid fa-circle-user"></i>
@@ -77,6 +79,9 @@
         <p>Location: Not updated</p>
       {% endif %}
     </div>
+
+
+    <!-- Profile Section -->
 
     <div id="profile" class="section" style="display: none">
       <h2>Personal Information</h2>
@@ -96,13 +101,12 @@
 
         <label for="phone">Phone No</label>
         <input type="text" id="phone" placeholder="Phone No" />
-
-        <label for="location">Location</label>
-        <input type="text" id="location" placeholder="Location" />
-
+        
         <button type="submit">Update Profile</button>
       </form>
     </div>
+
+    <!-- Orders Section -->
 
     <div id="orders" class="section" style="display: none">
       <h2>My Orders</h2>
@@ -123,29 +127,65 @@
       </div>
     </div>
 
+    <!-- Address Section -->
+
     <div id="address" class="section" style="display: none">
-      <h2>Address Section</h2>
+      <h2>Address</h2>
+      <h4>Saved Addresses</h4>
       <input type="text" placeholder="Home Address" />
       <input type="text" placeholder="Work Address" />
     </div>
 
-    <div id="contributions" class="section" style="display: none">
-      <h2>Contributions</h2>
-      <ul>
-        <li>Nature: 10 trees planted</li>
-        <li>Environment: 5 clean-up drives participated</li>
-      </ul>
+
+    <!-- Contributions Section- Nature -->
+
+<div id="contributions" class="section" style="display: none">
+  <h2>Contributions</h2>
+
+  <div class="contributions-container">
+    <div class="contribution-box">
+      <i class="fa-solid fa-tree"></i>
+      <h3>Trees Planted</h3>
+      <p>You have planted</p>
+      <div class="number" id="trees-count">0</div>
     </div>
 
-    <div id="environment" class="section" style="display: none">
-      <h2>Environment Contributions</h2>
-      <ul>
-        <li>Recycled: 100 kg</li>
-        <li>Composted: 50 kg</li>
-      </ul>
+    <div class="contribution-box">
+      <i class="fa-solid fa-broom"></i>
+      <h3>Clean-up Drives</h3>
+      <p>You have participated in</p>
+      <div class="number" id="drives-count">0</div>
     </div>
+  </div>
+</div>
+
+    <!-- Environment Contributions Section -->
+
+    <div id="environment" class="section" style="display: none;">
+  <h2>Environment Contributions</h2>
+
+  <div class="contributions-container">
+    <div class="contribution-box">
+      <i class="fa-solid fa-recycle"></i>
+      <h3>Recycled</h3>
+      <p>You have helped us recycle</p>
+      <div class="number" id="recycled-count">0</div>
+    </div>
+
+    <div class="contribution-box">
+      <i class="fa-solid fa-recycle"></i>
+      <h3>Composted</h3>
+      <p>You have contributed to composting</p>
+      <div class="number" id="composted-count">0</div>
+    </div>
+  </div>
+</div>
+
+
+
   </main>
 </div>
+
         <!-- Address Section -->
         <div id="address" class="section" style="display: none">
           <h2>Address Section</h2>

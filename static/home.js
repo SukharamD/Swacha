@@ -1,5 +1,12 @@
 const loginBtn = document.getElementById("loginBtn");
 const dropdownMenu = document.getElementById("dropdownMenu");
+const hamburger = document.getElementById("hamburger");
+const navbar = document.getElementById("navbar");
+
+
+hamburger.addEventListener("click", () => {
+  navbar.classList.toggle("show");
+}); 
 
 loginBtn.addEventListener("click", function (event) {
   dropdownMenu.style.display =
@@ -44,3 +51,4 @@ const animateCounter = (counter) => {
   }, { threshold: 1.0 });
 
 counters.forEach(counter => observer.observe(counter));
+

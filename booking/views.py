@@ -22,7 +22,9 @@ def book_garbage(request):
             if dry_types:
                 booking.dry_types = ', '.join(dry_types)
             booking.save()
-            return render(request, 'bookings.html', {'form': BookingForm(), 'success': True, 'time_slots': time_slots})
+
+            messages.success(request, "Booking Successful!")
+            return redirect('bookings')
 
     else:
         form = BookingForm()
@@ -40,6 +42,7 @@ def collector_dashboard(request):
     ).order_by('-booked_at')
 
     return render(request, 'collector_dashboard.html', {'pending_bookings': pending_bookings})
+
 @login_required
 def accept_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id)

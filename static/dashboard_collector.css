@@ -1,102 +1,92 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-    font-family: 'Poppins', sans-serif;
-    background-color: #d9f5bb;
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #d9f5bb;
 }
+
 /*****************Header*****************/
-
-#header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 70px;
-    background: #d9f5bb;
-    position: sticky;
-    z-index: 900;
-    top: 0;
-    left: 0;
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 70px;
+  background: #d9f5bb;
+  position: sticky;
+  z-index: 900;
+  top: 0;
+  left: 0;
+  flex-wrap: wrap;
 }
 
-#header img{
-    width: 50px;
-    height: 50px;
-    background: transparent;
-    transform: translateX(30px);
-    border-radius: 50%;
-
+#header img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transform: translateX(30px);
 }
 
-#navbar{
-    display: flex;
-    justify-content: right;
-    align-items: center; 
+#navbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
 }
-#navbar li{
-    position: relative;
-    padding: 0px 10px;
 
+#navbar li {
+  position: relative;
+  list-style: none;
 }
-#navbar li a{
-    text-decoration: none;
-    color: rgb(1, 63, 1);
-    font-size: 1.5rem;
-    font-weight: 500;
-    
+
+#navbar li a {
+  text-decoration: none;
+  color: rgb(1, 63, 1);
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 
 #navbar li a:hover,
-#navbar li a.active{
-    color: rgb(1, 63, 1);
-    transform: translateY(-12px);
+#navbar li a.active {
+  color: rgb(1, 63, 1);
+  transform: translateY(-5px);
 }
+
 #navbar li a:hover::after,
-#navbar li a.active:after{
-    content:" ";
-    width: 25%;
-    height: 2px;
-    background-color: rgb(1, 63, 1);
-    position: absolute;
-    bottom: -5px;
-    left: 30px;
+#navbar li a.active:after {
+  content: "";
+  width: 25%;
+  height: 2px;
+  background-color: rgb(1, 63, 1);
+  position: absolute;
+  bottom: -5px;
+  left: 30px;
 }
 
-#login-user a,i{
-    text-decoration: none;
-    color: rgb(1, 63, 1);
-    font-size: 25px;
-    margin-right: 10px;
-    margin-left: 50px;
-    font-weight: 400;
-}
-.login-btn i{
-    font-size: 25px;
-    color: rgb(1, 63, 1);
-    margin-right: 10px;
-    font-weight: 600;
+.login-btn i {
+  font-size: 25px;
+  color: rgb(1, 63, 1);
+  margin-right: 10px;
+  font-weight: 600;
 }
 
-/*****************************************/
 .login-container {
   position: relative;
   display: inline-block;
 }
 
 .login-btn {
-  outline: none;
   background-color: #d9f5bb;
   color: rgb(1, 63, 1);
-  font-size: 25px;
+  font-size: 18px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  border-radius: 2px;
-  position: relative;
-  z-index: 10;
+  border-radius: 4px;
 }
 
 .dropdown {
@@ -105,7 +95,7 @@ body{
   top: 100%;
   left: 0;
   background-color: white;
-  min-width: 200px;
+  min-width: 180px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   z-index: 5;
   border-radius: 4px;
@@ -117,48 +107,48 @@ body{
   padding: 10px 20px;
 }
 
-.dropdown p:hover {
-  background-color: #f0f0f0;
-}
-
 .dropdown a {
   color: rgb(1, 63, 1);
   text-decoration: none;
   font-weight: 500;
 }
+
+.dropdown p:hover {
+  background-color: #f0f0f0;
+}
+
 .dropdown.show {
   display: block;
 }
 
-
-/*****************************************/
-
-/* Dashboard Container */
+/***************Dashboard Container***************/
 .dashboard-container {
-  padding: 30px 60px;
+  padding: 40px 60px;
   background-color: #d9f5bb;
-  font-family: 'Poppins', sans-serif;
+  min-height: 60vh;
 }
 
-/* Stats Box */
 .stats {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
   margin-bottom: 40px;
 }
 
 .stat-box {
   background-color: #2f7164;
   color: white;
-  padding: 30px;
+  padding: 30px 20px;
   border-radius: 12px;
-  width: 30%;
+  flex: 1;
+  min-width: 200px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .stat-box h2 {
-  font-size: 40px;
+  font-size: 32px;
   margin-bottom: 10px;
 }
 
@@ -167,7 +157,6 @@ body{
   margin: 0;
 }
 
-/* Pickup Requests */
 .booking-list {
   list-style: none;
   padding: 0;
@@ -186,32 +175,33 @@ body{
   margin: 5px 0;
 }
 
-.accept-btn {
-  background-color: #2f7164;
-  color: white;
+.accept-btn,
+.reject-btn {
   padding: 8px 14px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  color: white;
+}
+
+.accept-btn {
+  background-color: #2f7164;
   margin-right: 10px;
 }
 
 .reject-btn {
   background-color: #d9534f;
-  color: white;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
 }
 
+.dashboard-container p {
+  font-size: 16px;
+  margin-bottom: 40px;
+}
 
 /***************Footer*****************/
-
 .footer {
   background-color: #d1edc7;
   padding: 30px 50px;
-  font-family: 'Poppins', sans-serif;
   color: #2d5c2d;
 }
 
@@ -220,11 +210,12 @@ body{
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 30px;
 }
 
 .footer-left, .footer-center, .footer-right {
   flex: 1;
-  margin: 10px;
+  min-width: 200px;
 }
 
 .logo {
@@ -279,4 +270,49 @@ body{
   margin-top: 30px;
   font-size: 14px;
   font-weight: 500;
+}
+
+
+/***************RESPONSIVE***************/
+@media (max-width: 768px) {
+  #header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 15px;
+  }
+
+  #navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .stats {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dashboard-container {
+    padding: 30px 20px;
+  }
+
+  .stat-box {
+    width: 100%;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-left, .footer-center, .footer-right {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-right {
+    justify-content: center;
+  }
 }

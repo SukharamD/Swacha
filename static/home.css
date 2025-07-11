@@ -502,6 +502,14 @@ form button:hover {
   font-weight: 500;
 }
 
+/************Hamburger*******************/
+#hamburger {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #2e7d32;
+}
+
 /***************Media Queries*****************/
 
 @media (max-width: 1024px) {
@@ -531,9 +539,35 @@ form button:hover {
 }
 
 @media (max-width: 768px) {
-  #header {
+  #navbar {
+    display: none;
     flex-direction: column;
-    padding: 10px;
+    background: #d9f5bb;
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    width: 200px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+  }
+
+  #navbar.show {
+    display: flex;
+  }
+
+  #hamburger {
+    display: block;
+  }
+
+  #header {
+    justify-content: space-between;
+    padding: 10px 20px;
+  }
+
+  .login-container {
+    margin-top: 10px;
   }
 
   #intro h1 {

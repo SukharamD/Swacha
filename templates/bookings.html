@@ -11,10 +11,10 @@
 
     <section id="header">
       <div class="logo-container">
-      <a href="#"
-        ><img src="{% static 'Logo_new1.png' %}" height="100px" width="100px"
-      /></a>
-      <h1>Swacha</h1>
+        <a href="#"
+          ><img src="{% static 'Logo_new1.png' %}" height="100px" width="100px"
+        /></a>
+        <h1>Swacha</h1>
       </div>
       <div>
         <ul id="navbar" type="none">
@@ -42,6 +42,14 @@
       </div>
     </section>
 
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
     <!-- Booking -->
     <div class="booking-container">
       <form id="bookingForm" method="POST" action="{% url 'bookings' %}">
@@ -50,6 +58,9 @@
 
         <!-- Garbage Type -->
         <div class="form-group">
+          
+          <input type="hidden" id="user-location" name="location" />
+
           <label>Type of Garbage:</label>
           <div class="radio-group">
             <label
@@ -77,6 +88,14 @@
             <label
               ><input type="checkbox" name="dry_type" value="Other" />
               Other</label
+            >
+            <label
+              ><input type="checkbox" name="dry_type" value="Old Furniture" />
+              Old Furniture</label
+            >
+            <label
+              ><input type="checkbox" name="dry_type" value="Home Shifting" />
+              Home Shifting</label
             >
           </div>
         </div>
@@ -120,11 +139,6 @@
           <button type="submit" class="confirm-btn">Confirm Booking</button>
           <a href="{% url 'home' %}" class="home-btn">Home</a>
         </div>
-
-        <!-- Success Message -->
-        <p id="successMessage" class="success-msg" style="display: none">
-          Booking Successful!
-        </p>
       </form>
     </div>
 
@@ -134,7 +148,11 @@
         <!-- Left: Logo + Contact -->
         <div class="footer-left">
           <div class="logo">
-            <img src="{% static 'Logo_new1.png' %}" height="100px" width="100px"/>
+            <img
+              src="{% static 'Logo_new1.png' %}"
+              height="100px"
+              width="100px"
+            />
             <h2>Swaccha</h2>
           </div>
           <div class="contact-info">
@@ -165,6 +183,6 @@
       </div>
     </footer>
 
-    <script src="{% static 'booking.js' %}"></script>
+    <script src="{% static 'bookings.js' %}"></script>
   </body>
 </html>

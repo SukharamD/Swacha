@@ -5,7 +5,7 @@
   font-family: 'Arial', sans-serif;
 }
 body {
-  background: #f5f5f5;
+  background: #d9f5bb;;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,8 +21,8 @@ body {
   overflow: hidden;
 }
 .left {
-  background: linear-gradient(to bottom, #014421, #1a7a3a);
-  color: white;
+  background: #d9f5bb;
+  color: #1a3102;
   padding: 40px;
   flex: 1;
   display: flex;
@@ -38,7 +38,7 @@ body {
   font-size: 14px;
 }
 .left a {
-  color: white;
+  color: #1a3102;
   text-decoration: none;
   font-size: 14px;
 }
@@ -52,7 +52,7 @@ body {
 }
 
 .right {
-  background: white;
+  background: #eaffd4;
   padding: 40px;
   flex: 1;
   display: flex;

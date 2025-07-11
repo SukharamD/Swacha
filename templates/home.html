@@ -13,39 +13,38 @@
     <title>Home</title>
   </head>
   <body>
-    <section id="header">
-      <a href="#"
-        ><img src="{% static 'Logo_new1.png' %}" height="100px" width="100px"
-      /></a>
-      <div>
-        <ul id="navbar" type="none">
-          <li><a class="active" href="">Home</a></li>
-          <li><a href="#about-section">About Us</a></li>
-          <li><a href="#services-section">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <div class="login-container">
-            <div class="login-btn" id="loginBtn">
-              <i class="fa-regular fa-circle-user"></i>
-              <span>
-                {% if user.is_authenticated %}
-                 {{ user.username|upper }} 
-                 {% else%}
-                  Login {% endif %}
-              </span>
-              <div class="dropdown" id="dropdownMenu">
-                {% if user.is_authenticated %}
-                <p><a href="{% url 'profile' %}">My Profile</a></p>
-                <hr />
-                <p><a href="{% url 'logout' %}">Logout</a></p>
-                {% else %}
-                <a href="{% url 'login' %}">Login</a>
-                {% endif %}
-              </div>
-            </div>
-          </div>
-        </ul>
+  <section id="header">
+  <a href="#" class="logo">
+    <img src="{% static 'Logo_new1.png' %}" alt="Swaccha Logo" />
+  </a>
+  <div id="hamburger"><i class="fas fa-bars"></i></div>
+  <ul id="navbar" type="none" class="nav-links">
+    <li><a class="active" href="">Home</a></li>
+    <li><a href="#about-section">About Us</a></li>
+    <li><a href="#services-section">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <div class="login-container">
+      <div class="login-btn" id="loginBtn">
+        <i class="fa-regular fa-circle-user"></i>
+        <span>
+          {% if user.is_authenticated %}
+          {{ user.username|upper }}
+          {% else %} Login {% endif %}
+        </span>
+        <div class="dropdown" id="dropdownMenu">
+          {% if user.is_authenticated %}
+          <p><a href="{% url 'profile' %}">My Profile</a></p>
+          <hr />
+          <p><a href="{% url 'logout' %}">Logout</a></p>
+          {% else %}
+          <a href="{% url 'login' %}">Login</a>
+          {% endif %}
+        </div>
       </div>
-    </section>
+    </div>
+  </ul>
+  </section>
+
 
     <section id="intro">
       <h1>Welcome to Swacha!!</h1>
