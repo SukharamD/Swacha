@@ -6,4 +6,5 @@ urlpatterns = [
     path('collector/dashboard/', views.collector_dashboard, name='collector_dashboard'),
     path('collector/accept/<int:booking_id>/', views.accept_booking, name='accept_booking'),
     path('collector/reject/<int:booking_id>/', views.reject_booking, name='reject_booking'),
+    path('booking/detail//<int:booking_id>', views.booking_detail, name='booking_detail'),
 ]

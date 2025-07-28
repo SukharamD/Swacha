@@ -11,3 +11,4 @@ urlpatterns = [
     path('register/collector/', views.register_collector_view, name='register_collector'),
     path('collector/dashboard/', views.collector_dashboard, name='dashboard_collector')
 ]
+

@@ -41,7 +41,7 @@ def collector_dashboard(request):
         Q(collector=collector)
     ).order_by('-booked_at')
 
-    return render(request, 'collector_dashboard.html', {'pending_bookings': pending_bookings})
+    return render(request, 'dashboard_collector.html', {'pending_bookings': pending_bookings})
 
 @login_required
 def accept_booking(request, booking_id):
@@ -50,7 +50,7 @@ def accept_booking(request, booking_id):
         booking.status = 'accepted'
         booking.collector = request.user
         booking.save()
-    return redirect('collector_dashboard')
+    return redirect('booking_detail', booking_id=booking.id)
 
 @login_required
 def reject_booking(request, booking_id):
@@ -60,3 +60,11 @@ def reject_booking(request, booking_id):
         booking.save()
     return redirect('collector_dashboard')
 
+@login_required
+def booking_detail(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id, collector=request.user)
+
+    context = {
+        'booking': booking
+    }
+    return render(request, 'booking_detail.html', context)
