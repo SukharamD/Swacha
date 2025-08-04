@@ -43,8 +43,14 @@ body {
   font-size: 14px;
 }
 
-.left a:hover {
+.left a span {
+  font-weight: bold;
+  color: #1c3106;
+  }
+  
+.left span:hover {
   text-decoration: underline;
+  color: #1c3106;
 }
 .left h2 {
   font-size: 24px;

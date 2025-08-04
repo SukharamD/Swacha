@@ -4,35 +4,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Swacha - Sign Up</title>
+  <title>Swacha-Register</title>
   <link rel="stylesheet" href="{% static 'register.css' %}">
 </head>
 <body>
   <div class="container">
     <div class="left">
+      <img src="{% static 'Logo_new1.png' %}" height="70px" width="70px"/>
       <h1>Hello,</h1>
       <h2>Welcome to Swacha!!</h2>
       <p>Join our community and make a difference</p>
-      <a href="{% url 'login' %}">Already Registered? Login</a>
+      <a href="{% url 'login' %}">Already Registered? <span>Login</span></a>
     </div>
     <div class="right">
       <h2>Create an account</h2>
       <form action="{% url 'register' %}" method="post">
         {% csrf_token %}
         <div class="form-group">
-          <!-- <label for="username">Username</label> -->
+          
           <input type="text" id="username" name="username" placeholder="Enter your username" required>
         </div>
         <div class="form-group">
-          <!-- <label for="email">Email</label> -->
           <input type="email" id="email" name="email" placeholder="Enter your email" required>
         </div>
         <div class="form-group">
-          <!-- <label for="password">Password</label> -->
           <input type="password" id="password" name="password" placeholder="Enter your password" required>
         </div>
         <div class="form-group">
-          <!-- <label for="confirm_password">Confirm Password</label> -->
           <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
         </div>
 
