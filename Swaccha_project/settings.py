@@ -1,32 +1,33 @@
 from pathlib import Path
 import os
-import socket
 import dj_database_url
-from decouple import config
-import dotenv
-dotenv.load_dotenv()
 from django.contrib.messages import constants as messages
-from urllib.parse import urlparse, urlunparse
+
+# (Remove decouple/dotenv/socket unless you use them)
+# from decouple import config
+# import dotenv
+# dotenv.load_dotenv()
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+# --- Core ---
+SECRET_KEY = os.getenv('SECRET_KEY')  # ensure set in Render Runtime env
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+# Case-insensitive read of DEBUG
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
-
+# Allow your Render app + local dev
 ALLOWED_HOSTS = ['.onrender.com', 'swacha.onrender.com', '127.0.0.1', 'localhost']
 
-# Application definition
+# Required when DEBUG=False (use https)
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.onrender.com',
+    # add custom domain if you later use one, e.g. 'https://yourdomain.com'
+]
 
+# --- Apps ---
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -36,12 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myAuth',
     'profiles',
-    'booking'
+    'booking',
 ]
 
+# --- Middleware ---
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # keep directly after SecurityMiddleware
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -70,40 +72,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Swaccha_project.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-raw_db_url = os.environ.get("DATABASE_URL", "")
-
-# ===== TEMP DEBUG (will show in Render logs) =====
-print("DEBUG: DATABASE_URL visible?", bool(raw_db_url))
-if raw_db_url:
-    print("DEBUG: DATABASE_URL starts with:", raw_db_url[:60] + "...")
-
-
-
-
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-raw_db_url = os.environ.get("DATABASE_URL", "")
-
-# Keep the TEMP DEBUG prints for now
-print("DEBUG: DATABASE_URL visible?", bool(raw_db_url))
-if raw_db_url:
-    print("DEBUG: DATABASE_URL starts with:", raw_db_url[:60] + "...")
-
+# --- Database ---
 DATABASES = {}
+DB_URL = os.environ.get("DATABASE_URL", "")
 
-if raw_db_url:
-    # Ensure sslmode=require in case it's missing
-    if "sslmode=" not in raw_db_url:
-        sep = "&" if "?" in raw_db_url else "?"
-        raw_db_url = raw_db_url + f"{sep}sslmode=require"
+if DB_URL:
+    # Ensure SSL for Supabase (pooler)
+    if "sslmode=" not in DB_URL:
+        DB_URL += ("&" if "?" in DB_URL else "?") + "sslmode=require"
 
     DATABASES["default"] = dj_database_url.parse(
-        raw_db_url,
+        DB_URL,
         conn_max_age=600,
         ssl_require=True,
     )
@@ -113,54 +92,32 @@ else:
         "NAME": BASE_DIR / "db.sqlite3",
     }
 
-
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
+# --- Password validators ---
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
+# --- I18N / TZ ---
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+TIME_ZONE = 'Asia/Kolkata'  # optional, matches your locale
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
+# --- Static files ---
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
-
+STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# --- Security for production ---
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    # If you see redirect issues, you can comment the next line:
+    SECURE_SSL_REDIRECT = True
