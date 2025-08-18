@@ -74,6 +74,15 @@ WSGI_APPLICATION = 'Swaccha_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+raw_db_url = os.environ.get("DATABASE_URL", "")
+
+# ===== TEMP DEBUG (will show in Render logs) =====
+print("DEBUG: DATABASE_URL visible?", bool(raw_db_url))
+if raw_db_url:
+    print("DEBUG: DATABASE_URL starts with:", raw_db_url[:60] + "...")
+
+
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
