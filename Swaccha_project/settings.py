@@ -84,34 +84,28 @@ if raw_db_url:
 
 
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-db_url = os.environ.get("DATABASE_URL", "")
+raw_db_url = os.environ.get("DATABASE_URL", "")
 
-def force_ipv4_in_db_url(url: str) -> str:
-    if not url:
-        return url
-    p = urlparse(url)
-    # Ensure a db name exists (Supabase default is 'postgres')
-    path = p.path if p.path and p.path != "/" else "/postgres"
-    # Resolve hostname to IPv4 (A record); avoids IPv6 AAAA selection
-    ipv4 = socket.gethostbyname(p.hostname)
-    # Rebuild URL with IPv4 literal in netloc
-    netloc = f"{p.username}:{p.password}@{ipv4}:{p.port or 5432}"
-    # Keep existing query; ensure sslmode=require present for libpq
-    query = p.query
-    if "sslmode=" not in (query or ""):
-        query = (query + "&" if query else "") + "sslmode=require"
-    return urlunparse((p.scheme, netloc, path, p.params, query, p.fragment))
+# Keep the TEMP DEBUG prints for now
+print("DEBUG: DATABASE_URL visible?", bool(raw_db_url))
+if raw_db_url:
+    print("DEBUG: DATABASE_URL starts with:", raw_db_url[:60] + "...")
 
 DATABASES = {}
 
-if db_url:
-    db_url = force_ipv4_in_db_url(db_url)
+if raw_db_url:
+    # Ensure sslmode=require in case it's missing
+    if "sslmode=" not in raw_db_url:
+        sep = "&" if "?" in raw_db_url else "?"
+        raw_db_url = raw_db_url + f"{sep}sslmode=require"
+
     DATABASES["default"] = dj_database_url.parse(
-        db_url,
+        raw_db_url,
         conn_max_age=600,
-        ssl_require=True,  # Supabase needs SSL
+        ssl_require=True,
     )
 else:
     DATABASES["default"] = {
