@@ -73,19 +73,26 @@ WSGI_APPLICATION = 'Swaccha_project.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 
-DATABASE_URL = os.environ.get("DATABASE_URL")
+# Use Postgres from Supabase when DATABASE_URL is present (Render)
+DATABASES = {}
 
-if DATABASE_URL:
-    DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
-    }
+db_url = os.environ.get("DATABASE_URL", "")
+if db_url:
+    # Persistent Postgres (production)
+    DATABASES["default"] = dj_database_url.parse(
+        db_url,
+        conn_max_age=600,  # keep connections open
+        ssl_require=True   # Supabase requires SSL
+    )
 else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+    # Safe fallback for local dev if you don't set DATABASE_URL locally
+    from pathlib import Path
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    DATABASES["default"] = {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
+
 
 
 # Password validation
