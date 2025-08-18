@@ -1,10 +1,12 @@
 from pathlib import Path
 import os
+import socket
 import dj_database_url
 from decouple import config
 import dotenv
 dotenv.load_dotenv()
 from django.contrib.messages import constants as messages
+from urllib.parse import urlparse, urlunparse
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
@@ -73,25 +75,41 @@ WSGI_APPLICATION = 'Swaccha_project.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 
-# Use Postgres from Supabase when DATABASE_URL is present (Render)
-DATABASES = {}
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 db_url = os.environ.get("DATABASE_URL", "")
+
+def force_ipv4_in_db_url(url: str) -> str:
+    if not url:
+        return url
+    p = urlparse(url)
+    # Ensure a db name exists (Supabase default is 'postgres')
+    path = p.path if p.path and p.path != "/" else "/postgres"
+    # Resolve hostname to IPv4 (A record); avoids IPv6 AAAA selection
+    ipv4 = socket.gethostbyname(p.hostname)
+    # Rebuild URL with IPv4 literal in netloc
+    netloc = f"{p.username}:{p.password}@{ipv4}:{p.port or 5432}"
+    # Keep existing query; ensure sslmode=require present for libpq
+    query = p.query
+    if "sslmode=" not in (query or ""):
+        query = (query + "&" if query else "") + "sslmode=require"
+    return urlunparse((p.scheme, netloc, path, p.params, query, p.fragment))
+
+DATABASES = {}
+
 if db_url:
-    # Persistent Postgres (production)
+    db_url = force_ipv4_in_db_url(db_url)
     DATABASES["default"] = dj_database_url.parse(
         db_url,
-        conn_max_age=600,  # keep connections open
-        ssl_require=True   # Supabase requires SSL
+        conn_max_age=600,
+        ssl_require=True,  # Supabase needs SSL
     )
 else:
-    # Safe fallback for local dev if you don't set DATABASE_URL locally
-    from pathlib import Path
-    BASE_DIR = Path(__file__).resolve().parent.parent
     DATABASES["default"] = {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
+
 
 
 
