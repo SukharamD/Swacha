@@ -5,7 +5,7 @@
   font-family: 'Arial', sans-serif;
 }
 body {
-  background: #f5f5f5;
+  background: #d9f5bb;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +21,7 @@ body {
   overflow: hidden;
 }
 .left {
-  background: linear-gradient(to bottom, #014421, #1a7a3a);
+  background: #d9f5bb;
   color: white;
   padding: 40px;
   flex: 1;
