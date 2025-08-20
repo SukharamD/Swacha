@@ -1,53 +1,66 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const dryOptions   = document.getElementById("dry-options");
-  const garbageRadios = document.querySelectorAll('input[name="garbage_type"]');
-  const bookingForm   = document.getElementById("bookingForm");
-  const locationInput = document.getElementById("user-location");
 
-  // Guard: if the form isn’t on this page, bail early (avoids errors on pages that also load this JS)
+  const bookingForm   = document.getElementById("bookingForm");
+  const dryOptions    = document.getElementById("dry-options");
+  const locationInput = document.getElementById("user-location");
+  const garbageRadios = document.querySelectorAll('input[name="garbage_type"]');
+  const successMsg    = document.getElementById("successMessage"); // optional (may not exist)
+  const submitBtn     = bookingForm?.querySelector('button[type="submit"]');
+
+  // If this JS is loaded on a page without the form, bail out safely.
   if (!bookingForm) {
     console.warn("#bookingForm not found on this page. Skipping bookings.js.");
     return;
   }
 
-  // Show/hide dry options safely
-  garbageRadios.forEach((radio) => {
-    radio.addEventListener("change", function () {
-      if (!dryOptions) {
-        console.warn("#dry-options not found");
-        return;
-      }
-      dryOptions.style.display = this.value === "dry" ? "block" : "none";
-    });
-  });
-
-  // Optional: set initial state on page load (in case "dry" is preselected)
-  const selected = document.querySelector('input[name="garbage_type"]:checked');
-  if (dryOptions) {
+  // ---- Toggle dry options on radio change ----
+  function setDryOptionsVisibility() {
+    if (!dryOptions) return;
+    const selected = document.querySelector('input[name="garbage_type"]:checked');
     dryOptions.style.display = selected && selected.value === "dry" ? "block" : "none";
   }
 
-  // Submit with geolocation
+  // Initial state (in case of preselected radio on back/refresh)
+  setDryOptionsVisibility();
+
+  // React to changes
+  garbageRadios.forEach((radio) => {
+    radio.addEventListener("change", setDryOptionsVisibility);
+  });
+
+  // ---- Submit with geolocation (captures coords, then submits) ----
   bookingForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    if (navigator.geolocation) {
+    // Optional success banner toggle (won't error if missing)
+    if (successMsg) successMsg.style.display = "block";
+
+    // Prevent double submits
+    if (submitBtn) submitBtn.disabled = true;
+
+    // Helper to submit safely and re-enable the button afterward if needed
+    const doSubmit = () => {
+      bookingForm.submit();
+    };
+
+    // Geolocation capture
+    if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
-        function (position) {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
           if (locationInput) locationInput.value = `${lat},${lon}`;
-          // alert(`Location captured: ${lat}, ${lon}`); // optional
-          bookingForm.submit();
+          doSubmit();
         },
-        function () {
-          // alert("Location access denied or unavailable."); // optional
-          bookingForm.submit();
-        }
+        (_err) => {
+          // User denied or unavailable -> submit without location
+          doSubmit();
+        },
+        { enableHighAccuracy: false, timeout: 8000, maximumAge: 60000 }
       );
     } else {
-      // alert("Geolocation not supported."); // optional
-      bookingForm.submit();
+      // No geolocation support -> submit without location
+      doSubmit();
     }
   });
 });
